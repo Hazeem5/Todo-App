@@ -16,7 +16,7 @@ const Todos = () => {
     async function addTodo(){
          const data={desc: inputText}
         const res=await axios.post("/api/todos",data)
-        settodo((prevTodos) =>[...prevTodos,{desc:inputText,completed:false}])
+     //   settodo((prevTodos ) =>[...prevTodos,{desc:inputText,completed:false}])
      }
      async function deleteTodo(todo)
      {
