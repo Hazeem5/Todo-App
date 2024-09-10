@@ -1,12 +1,17 @@
 'use client'
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
+interface TodoTypes {
+    id: string;
+    desc: string;
+    completed: boolean;
+}
 const Todos = () => {
     const [inputText, setInputText] = useState("");
-    const [todo,settodo] = useState([])
+    const [todo,settodo] = useState<TodoTypes[]>([])
     const[editmode,seteditmode]=useState(false)
     const [update,setupdate]=useState(false)
-    const [editinfo,seteditinfo]=useState({id:"",desc:"",completed:false})
+    const [editinfo,seteditinfo]=useState<TodoTypes>({id:"",desc:"",completed:false})
  useEffect(()=>{
      axios.get('/api/todos').then((res)=>{
  settodo(res.data.todos)
@@ -18,13 +23,13 @@ const Todos = () => {
         const res=await axios.post("/api/todos",data)
      //   settodo((prevTodos ) =>[...prevTodos,{desc:inputText,completed:false}])
      }
-     async function deleteTodo(todo)
+     async function deleteTodo(todo:TodoTypes)
      {
         const id=todo.id
          const res=await axios.delete(`/api/todos/${id}`)
          setupdate(true)
     }
-    async function editTodo(todo)
+    async function editTodo(todo:TodoTypes)
     {seteditmode(true)
         seteditinfo({id:todo.id, desc:todo.desc, completed:todo.completed})
     }
