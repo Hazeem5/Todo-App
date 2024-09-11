@@ -21,13 +21,14 @@ const Todos = () => {
     async function addTodo(){
          const data={desc: inputText}
         const res=await axios.post("/api/todos",data)
+        setupdate(prev=>!prev)
      //   settodo((prevTodos ) =>[...prevTodos,{desc:inputText,completed:false}])
      }
      async function deleteTodo(todo:TodoTypes)
      {
         const id=todo.id
          const res=await axios.delete(`/api/todos/${id}`)
-         setupdate(true)
+         setupdate(prev=>!prev)
     }
     async function editTodo(todo:TodoTypes)
     {seteditmode(true)
@@ -42,12 +43,13 @@ const Todos = () => {
    await axios.put(`/api/todos/${editinfo.id}`,data)
     
     seteditmode(false)
-    setupdate(true)
+    setupdate(prev=>!prev)
     
    }
      async function clearTodo(){
        const res=await axios.delete("/api/todos")
         settodo([])
+        setupdate(prev=>!prev)
     }
     if(editmode){
         return(
